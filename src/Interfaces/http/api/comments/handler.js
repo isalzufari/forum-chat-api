@@ -17,16 +17,13 @@ class CommentsHandler {
     const addCommentUseCase = this._container.getInstance(AddCommentUseCase.name);
     const addedComment = await addCommentUseCase.execute({ content, owner, threadId });
 
-    const response = h.response({
+    return h.response({
       status: 'success',
       message: 'successfully added comment',
       data: {
         addedComment,
       },
-    });
-
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   async deleteCommentHandler(request, h) {
@@ -36,13 +33,10 @@ class CommentsHandler {
     const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
     await deleteCommentUseCase.execute({ threadId, commentId, owner });
 
-    const response = h.response({
+    return {
       status: 'success',
       message: 'successfuly deleted comment'
-    });
-
-    response.code(200);
-    return response;
+    }
   }
 }
 

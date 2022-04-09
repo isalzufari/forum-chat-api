@@ -53,7 +53,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
 
     if(!result.rowCount) {
       throw new NotFoundError('thread not available')
-    }
+    } 
     
     return result.rows[0]
   }

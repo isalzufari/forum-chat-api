@@ -58,7 +58,7 @@ describe('ThreadRepositoryPostgres', () => {
   });
 
   describe('verifyAvailableThread', () => {
-    it('should not throw NotFoundError when thread is not available ', async () => {
+    it('should not throw NotFoundError when thread is not available', async () => {
       await ThreadsTableTestHelper.addThread({});
       const threadRepoPostgres = new ThreadRepositoryPostgres(pool, {});
 
@@ -89,6 +89,16 @@ describe('ThreadRepositoryPostgres', () => {
       expect(threadDetails).toHaveProperty('body', 'body');
       expect(threadDetails).toHaveProperty('username', 'dicoding');
       expect(threadDetails).toHaveProperty('date');
+    });
+
+    it('should not throw NotFoundError when thread is not available', async () => {
+      await ThreadsTableTestHelper.addThread({});
+
+      const threadRepoPostgres =  new ThreadRepositoryPostgres(pool, {});
+
+      await expect(threadRepoPostgres.getDetailThread('thread-456')).rejects.toThrow(
+        NotFoundError,
+      );
     });
   });
 });

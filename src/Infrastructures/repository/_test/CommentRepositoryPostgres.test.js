@@ -72,11 +72,7 @@ describe('CommenRepositoryPostgres', () => {
       await expect(commenRepositoryPostgres.verifyCommentAccess({
         commentId: 'comment-123',
         owner: 'user-123'
-      })).resolves.not.toThrowError(NotFoundError);
-      await expect(commenRepositoryPostgres.verifyCommentAccess({
-        commentId: 'comment-123',
-        owner: 'user-123'
-      })).resolves.not.toThrowError(AuthorizationError);
+      })).resolves.not.toThrowError();
     });
 
     it('should throw NotFoundError when comment is not found', async () => {
@@ -115,6 +111,7 @@ describe('CommenRepositoryPostgres', () => {
       expect(comment[0].content).toEqual('content');
       expect(comment[0].is_deleted).toEqual(false);
       expect(comment[0].username).toEqual('dicoding');
+      expect(comment[0].date).toBeDefined()
     });
   });
 
