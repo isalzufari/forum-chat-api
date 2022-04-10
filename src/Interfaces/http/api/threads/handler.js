@@ -15,16 +15,13 @@ class ThreadsHandler {
     const addThreadUseCase = this._container.getInstance(AddThreadUseCase.name);
     const addedThread = await addThreadUseCase.execute({ ...request.payload, owner });
     
-    const response = h.response({
+    return h.response({
       status: 'success',
       message: 'successfully added thread',
       data: {
         addedThread,
       },
-    });
-
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   async getThreadByIdHandler(request, h) {
@@ -33,16 +30,13 @@ class ThreadsHandler {
     const getThreadDetailUseCase = this._container.getInstance(GetThreadDetailUseCase.name);
     const thread = await getThreadDetailUseCase.execute({ threadId });
 
-    const response = h.response({
+    return h.response({
       status: 'success',
       message: 'successfully get detail thread',
       data: {
         thread,
       },
     });
-
-    response.code(200);
-    return response;
   }
 }
 
